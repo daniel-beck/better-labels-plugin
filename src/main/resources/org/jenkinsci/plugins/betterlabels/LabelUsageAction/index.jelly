@@ -1,0 +1,18 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <l:layout title="${it.displayName}">
+        <st:include it="${it.label}" page="sidepanel.jelly"/>
+        <l:main-panel>
+            <h1>${it.label.displayName} ${it.displayName}</h1>
+            <p>
+                ${%description}
+            </p>
+            <j:set var="projectsByLabel" value="${it.projectsByAssignedLabel}"/>
+            <j:forEach var="label" items="${projectsByLabel.keySet()}">
+            	<h3>${label.displayName}</h3>
+            	<j:set var="projects" value="${projectsByLabel.get(label)}" />
+            	<t:projectView jobs="${projects}"/>
+            </j:forEach>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>
